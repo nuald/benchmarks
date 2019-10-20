@@ -117,6 +117,7 @@ Testing large blob base64 encoding/decoding into newly allocated buffers.
 | Java            | 2.98    | 371.0       |
 | D Gdc           | 3.08    | 10.7        |
 | Scala           | 3.09    | 131.3       |
+| Zig             | 3.15    | 0.3         |
 | Kotlin          | 3.23    | 377.4       |
 | Nim Gcc         | 3.30    | 7.4         |
 | Perl XS         | 3.35    | 6.2         |
@@ -306,3 +307,4 @@ Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz (Ubuntu 18.04.3 LTS x86_64)
 * Chez Scheme Version 9.5
 * V 0.1.21 c18578a
 * Clojure 1.10.1
+* Zig 0.5.0+cb8dacabd
