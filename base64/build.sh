@@ -6,6 +6,8 @@ gccgo -O3 -g -o base64_go_gccgo test.go
 g++ -O3 -o base64_cpp test.cpp -lcrypto
 gcc -O3 -std=c99 -o base64_c test.c
 gcc -O3 -std=c99 -o base64_c_stack test-stack.c
+clang -O3 -std=c99 -o base64_clang test.c
+clang -O3 -std=c99 -o base64_clang_stack test-stack.c
 scalac test.scala
 javac Base64Java.java
 kotlinc Test.kt -include-runtime -d Test-kt.jar
@@ -29,4 +31,5 @@ wget -qO - https://cpanmin.us | perl - -L perllib MIME::Base64::Perl
 v -prod -cc gcc -o base64_v_gcc test.v
 v -prod -cc clang -o base64_v_clang test.v
 zig build-exe --release-fast --name base64_zig test.zig
+zig build-exe --release-fast -lc --name base64_zig_libc test-libc.zig
 zig build-exe --release-fast --name base64_zig_stack test-stack.zig
