@@ -10,6 +10,8 @@ echo Cpp
 ../xtime.rb ./base64_cpp
 echo C
 ../xtime.rb ./base64_c
+echo C stack
+../xtime.rb ./base64_c_stack
 echo C aklomp SSSE3
 ../xtime.rb ./base64_c_ak_ssse
 echo Rust
@@ -58,3 +60,7 @@ echo V Gcc
 ../xtime.rb ./base64_v_gcc
 echo V Clang
 ../xtime.rb ./base64_v_clang
+echo Zig
+../xtime.rb ./base64_zig
+echo Zig stack
+../xtime.rb ./base64_zig_stack

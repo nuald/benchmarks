@@ -1,7 +1,7 @@
 require "base64"
 
-STR_SIZE = 10_000_000
-TRIES = 100
+STR_SIZE = 1024
+TRIES = 1000_000
 
 str = "a" * STR_SIZE
 str2 = ""
