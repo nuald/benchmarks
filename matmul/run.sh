@@ -42,11 +42,11 @@ echo Mono
 echo C# .Net Core
 ../xtime.rb dotnet bin/Release/netcoreapp3.0/matmul.dll 1500
 echo Python PyPy
-../xtime.rb pypy matmul.py 1500
+../xtime.rb pypy3 matmul.py 1500
 echo Python
-../xtime.rb python matmul.py 1500
+../xtime.rb python3 matmul.py 1500
 echo Python NumPy
-../xtime.rb python matmul-numpy.py 1500
+../xtime.rb python3 matmul-numpy.py 1500
 echo Ruby
 ../xtime.rb ruby matmul.rb 1500
 echo JRuby

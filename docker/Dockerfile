@@ -16,10 +16,10 @@ ARG MONO_VERSION=6.4.0.198
 RUN echo "deb http://download.mono-project.com/repo/debian vs-stretch/snapshots/$MONO_VERSION main" > /etc/apt/sources.list.d/mono-official-vs.list
 
 RUN  apt-get update \
-  && apt-get install -y wget xz-utils build-essential libtool-bin cmake git curl vim \
+  && apt-get install -y wget xz-utils build-essential libtool-bin cmake git curl vim powercap-utils \
      libgmp-dev libssl-dev libssl1.1 libxml2 lbzip2 libtinfo5 libtool zlib1g libicu63 \
      libpcre3-dev libevent-dev libboost-dev libjson-c-dev libblas-dev liblapack-dev libopenblas-dev \
-     python python-numpy python3 python-ujson python3-ujson \
+     python3-numpy python3 python3-ujson \
      mono-devel nuget \
      chezscheme gccgo gdc \
      luajit lua5.3 tcl tcllib jq php elixir clang-9 opam \
@@ -39,16 +39,16 @@ RUN export VERSION=ruby-2.6.5 \
 ENV PATH="/opt/ruby/bin:${PATH}"
 
 # https://github.com/dotnet/core/tree/master/release-notes
-ARG DOTNET_CORE=3.0.100
+ARG DOTNET_CORE=3.0.101
 RUN mkdir dotnet && wget --progress=dot:giga -O - \
-    https://download.visualstudio.microsoft.com/download/pr/886b4a4c-30af-454b-8bec-81c72b7b4e1f/d1a0c8de9abb36d8535363ede4a15de6/dotnet-sdk-$DOTNET_CORE-linux-x64.tar.gz \
+    https://download.visualstudio.microsoft.com/download/pr/4f51cfd8-311d-43fe-a887-c80b40358cfd/440d10dc2091b8d0f1a12b7124034e49/dotnet-sdk-$DOTNET_CORE-linux-x64.tar.gz \
     | tar -xz -C dotnet
 ENV PATH="/opt/dotnet:${PATH}"
 
-# https://bitbucket.org/squeaky/portable-pypy/downloads/
-ARG PYPY=pypy-7.1.1-linux_x86_64-portable
+# https://pypy.org/download.html
+ARG PYPY=pypy3.6-v7.2.0-linux64
 RUN wget --progress=dot:giga -O - \
-    https://bitbucket.org/squeaky/portable-pypy/downloads/$PYPY.tar.bz2 \
+    https://bitbucket.org/pypy/pypy/downloads/$PYPY.tar.bz2 \
     | tar -xj
 ENV PATH="/opt/$PYPY/bin:${PATH}"
 
@@ -74,7 +74,7 @@ RUN wget --progress=dot:giga -O - \
 ENV PATH="/opt/$LDC/bin/:${PATH}"
 
 # https://nim-lang.org/install_unix.html
-ARG NIM=nim-1.0.2
+ARG NIM=nim-1.0.4
 RUN wget --progress=dot:giga -O - \
     https://nim-lang.org/download/$NIM-linux_x64.tar.xz \
     | tar -xJ
@@ -100,7 +100,7 @@ RUN wget --progress=dot:giga -O - \
 ENV PATH="/opt/scala-$SCALA/bin/:${PATH}"
 
 # https://nodejs.org/en/download/current/
-ARG NODE=v13.1.0
+ARG NODE=v13.2.0
 RUN wget --progress=dot:giga -O - \
     https://nodejs.org/dist/$NODE/node-$NODE-linux-x64.tar.xz \
     | tar -xJ
@@ -118,16 +118,16 @@ RUN wget --progress=dot:giga -O - \
     && ln -s /opt/jruby-$JRUBY/bin/jruby /usr/bin/jruby
 
 # https://github.com/oracle/truffleruby/releases
-ARG TRUFFLERUBY=19.2.1
+ARG TRUFFLERUBY=19.3.0
 RUN wget --progress=dot:giga -O - \
     https://github.com/oracle/truffleruby/releases/download/vm-$TRUFFLERUBY/truffleruby-$TRUFFLERUBY-linux-amd64.tar.gz \
     | tar -xz \
     && ln -s /opt/truffleruby-$TRUFFLERUBY-linux-amd64/bin/truffleruby /usr/bin/truffleruby
 
 # https://julialang.org/downloads/
-ARG JULIA=julia-1.2.0
+ARG JULIA=julia-1.3.0
 RUN wget --progress=dot:giga -O - \
-    https://julialang-s3.julialang.org/bin/linux/x64/1.2/$JULIA-linux-x86_64.tar.gz \
+    https://julialang-s3.julialang.org/bin/linux/x64/1.3/$JULIA-linux-x86_64.tar.gz \
     | tar -xz
 ENV PATH="/opt/$JULIA/bin/:${PATH}"
 
@@ -152,21 +152,12 @@ RUN wget --progress=dot:giga -O - \
 ENV PATH="/opt/mlton-$MLTON-1.amd64-linux/bin/:${PATH}"
 
 # https://kotlinlang.org/docs/tutorials/command-line.html
-ARG KOTLIN=1.3.50
+ARG KOTLIN=1.3.61
 RUN wget --progress=dot:giga \
     https://github.com/JetBrains/kotlin/releases/download/v$KOTLIN/kotlin-compiler-$KOTLIN.zip \
     && unzip kotlin-compiler-$KOTLIN.zip \
     && rm kotlin-compiler-$KOTLIN.zip
 ENV PATH="/opt/kotlinc/bin/:${PATH}"
-
-ENV GHCUP_INSTALL_BASE_PREFIX="/opt"
-RUN curl https://get-ghcup.haskell.org -sSf \
-    | BOOTSTRAP_HASKELL_NONINTERACTIVE="y" sh
-ENV PATH="/opt/.ghcup/bin/:${PATH}"
-
-# https://www.haskell.org/ghc/
-ARG GHC_VER=8.8.1
-RUN ghcup install $GHC_VER && ghcup set $GHC_VER
 
 # https://ocaml.org/releases/
 ARG OCAML=4.09.0
@@ -177,17 +168,29 @@ RUN curl -Lo /usr/local/bin/coursier https://git.io/coursier-cli \
     && chmod +x /usr/local/bin/coursier
 
 # https://clojure.org/community/downloads
-ARG CLOJURE=1.10.1.483
+ARG CLOJURE=1.10.1.492
 RUN wget --progress=dot:giga -O - \
     https://download.clojure.org/install/linux-install-$CLOJURE.sh \
     | bash -s
 
 # https://download.racket-lang.org/
-ARG RACKET=7.4
+ARG RACKET=7.5
 RUN wget --progress=dot:giga \
     https://mirror.racket-lang.org/installers/$RACKET/racket-$RACKET-x86_64-linux.sh \
     && sh racket-$RACKET-x86_64-linux.sh --unix-style --dest /usr/ \
     && rm racket-$RACKET-x86_64-linux.sh
+ENV GHCUP_INSTALL_BASE_PREFIX="/opt"
+RUN curl https://get-ghcup.haskell.org -sSf \
+    | BOOTSTRAP_HASKELL_NONINTERACTIVE="y" sh
+ENV PATH="/opt/.ghcup/bin/:${PATH}"
+
+# https://www.haskell.org/ghc/
+ARG GHC_VER=8.8.1
+RUN ghcup install $GHC_VER && ghcup set $GHC_VER
+
+# Shared packages for all Haskell code
+RUN cabal update && cabal install network-simple --lib
+ENV GHC_PACKAGE_PATH="~/.cabal/store/ghc-${GHC_VER}/package.db:"
 
 ARG SCRIPTS_VER=unknown
 COPY *.rb ./

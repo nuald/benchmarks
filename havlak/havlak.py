@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import sys
+import socket
 
 #======================================================
 # Scaffold Code
@@ -568,6 +569,10 @@ def buildBaseLoop(From):
   buildConnect(footer, From)
   footer = buildStraight(footer, 1)
   return  footer
+
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    if not s.connect_ex(("localhost", 9001)):
+        s.sendall(bytes(platform.python_implementation(), 'utf8'))
 
 cfg = CFG()
 lsg = LSG()

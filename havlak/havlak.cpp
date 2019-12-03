@@ -18,6 +18,10 @@
 #include <list>
 #include <vector>
 #include <algorithm>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <functional>
 
 // Forward Decls
 class BasicBlock;
@@ -761,6 +765,21 @@ int buildBaseLoop(MaoCFG *cfg, int from) {
 
 
 int main(int argc, char *argv[]) {
+  {
+    unique_ptr<int, function<void(int*)>> sock(
+      new int(socket(AF_INET, SOCK_STREAM, 0)),
+      [](int *s){ close(*s); });
+    struct sockaddr_in serv_addr = {
+      .sin_family = AF_INET,
+      .sin_port = htons(9001)
+    };
+    inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr);
+    if (!connect(*sock.get(), (struct sockaddr *)&serv_addr, sizeof(serv_addr))) {
+      string msg("C++");
+      send(*sock.get(), msg.c_str(), msg.size(), 0);
+    }
+  }
+
   fprintf(stderr, "Welcome to LoopTesterApp, C++ edition\n");
   MaoCFG cfg;
   LoopStructureGraph lsg;

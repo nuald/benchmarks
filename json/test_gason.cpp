@@ -4,6 +4,10 @@
 #include <sstream>
 #include <string>
 #include <string.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <functional>
 
 using namespace std;
 
@@ -17,7 +21,22 @@ void read_file(string filename, stringstream &buffer){
 }
 
 int main() {
-    std::stringstream ss;
+    {
+      unique_ptr<int, function<void(int*)>> sock(
+        new int(socket(AF_INET, SOCK_STREAM, 0)),
+        [](int *s){ close(*s); });
+      struct sockaddr_in serv_addr = {
+        .sin_family = AF_INET,
+        .sin_port = htons(9001)
+      };
+      inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr);
+      if (!connect(*sock.get(), (struct sockaddr *)&serv_addr, sizeof(serv_addr))) {
+        string msg("C++ gason");
+        send(*sock.get(), msg.c_str(), msg.size(), 0);
+      }
+    }
+
+    stringstream ss;
     read_file("./1.json", ss);
 
     string text = ss.str();
@@ -44,9 +63,9 @@ int main() {
       }
     }
 
-    std::cout << x / len << std::endl;
-    std::cout << y / len << std::endl;
-    std::cout << z / len << std::endl;
+    cout << x / len << endl;
+    cout << y / len << endl;
+    cout << z / len << endl;
 
     return 0;
 }

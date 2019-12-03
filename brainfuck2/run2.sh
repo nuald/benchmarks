@@ -40,7 +40,7 @@ echo C# Mono
 echo C# .NET Core
 ../xtime.rb dotnet bin_cs/netcoreapp3.0/brainfuck2.dll mandel.b > /dev/null
 echo Python PyPy
-../xtime.rb pypy bf.py mandel.b > /dev/null
+../xtime.rb pypy3 bf.py mandel.b > /dev/null
 echo Standard ML MLton
 ../xtime.rb ./bin_sml mandel.b > /dev/null
 echo LuaJIT

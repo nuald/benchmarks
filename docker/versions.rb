@@ -44,11 +44,11 @@ def versions
     },
 
     "GCC" => -> { `gcc -dumpfullversion` },
-    "GCC Go" => -> { `gccgo -dumpfullversion` },
+    "GCC Go (gccgo)" => -> { `gccgo -dumpfullversion` },
     "GDC" => -> { `gdc -dumpfullversion` },
     "Nim" => -> { `nim c --verbosity:0 --hint[Processing]:off -r #{cat('nim.nim', 'echo NimVersion')}` },
     "Crystal" => -> { `crystal eval "puts Crystal::VERSION"` },
-    "Go" => -> {
+    "Go (gc)" => -> {
       prog = <<-END
 package main
 import (
@@ -77,15 +77,14 @@ END
     },
     "Scala" => -> { `scala -e "print(util.Properties.versionNumberString)"` },
     "Node.js" => -> { `node -e "console.log(process.version)"` },
-    "Python 2" => -> { `python2 -c "import platform;print(platform.python_version())"` },
-    "Python 3" => -> { `python3 -c "import platform;print(platform.python_version())"` },
+    "CPython" => -> { `python3 -c "import platform;print(platform.python_version())"` },
     "PyPy" => -> {
       prog = <<-END
 import platform, sys
 pypy = "%d.%d.%d-%s%d" % sys.pypy_version_info
 print("%s for Python %s" % (pypy, platform.python_version()))
 END
-      `pypy #{cat('pypy.py', prog)}`
+      `pypy3 #{cat('pypy.py', prog)}`
     },
     "Ruby" => -> { `ruby -e 'puts "#{RUBY_VERSION}p#{RUBY_PATCHLEVEL}"'` },
     "JRuby" => -> { `jruby -e 'puts JRUBY_VERSION'` },

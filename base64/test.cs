@@ -20,6 +20,16 @@ namespace Test
                 Convert.FromBase64String(Convert.ToBase64String(str1));
             }
 
+            try {
+                using (var s = new System.Net.Sockets.TcpClient("localhost", 9001)) {
+                    var runtime = Type.GetType("Mono.Runtime") != null ? "Mono" : ".NET Core";
+                    var data = System.Text.Encoding.UTF8.GetBytes("C# " + runtime);
+                    s.Client.Send(data);
+                }
+            } catch {
+                // standalone usage
+            }
+
             var str2 = Convert.ToBase64String(str1);
             Console.Write("encode {0}... {1}...: ",
                 Encoding.UTF8.GetString(str1, 0, 4), str2.Substring(0, 4));

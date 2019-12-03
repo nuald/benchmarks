@@ -44,7 +44,7 @@ echo Nim Clang
 echo OCaml
 ../xtime.rb ./bin_ocaml bench.b
 echo Python PyPy
-../xtime.rb pypy bf.py bench.b
+../xtime.rb pypy3 bf3.py bench.b
 echo Perl
 ../xtime.rb perl bf.pl bench.b
 echo Ruby
@@ -54,8 +54,6 @@ echo JRuby
 echo TruffleRuby
 ../xtime.rb truffleruby bf.rb bench.b
 echo Python
-../xtime.rb python bf.py bench.b
-echo Python3
 ../xtime.rb python3 bf3.py bench.b
 echo Standard ML MLton
 ../xtime.rb ./bin_sml bench.b

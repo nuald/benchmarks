@@ -1,4 +1,5 @@
 # Writen by Attractive Chaos; distributed under the MIT license
+require 'socket'
 
 def matmul(a, b)
   m = a.length
@@ -37,6 +38,14 @@ def matgen(n)
     end
   end
   a
+end
+
+begin
+  Socket.tcp('localhost', 9001) { |s|
+    s.puts "#{RUBY_ENGINE}"
+  }
+rescue
+  # standalone usage
 end
 
 n = 100

@@ -3,6 +3,9 @@
 #include "time.h"
 #include <stdint.h>
 #include <string.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
 
 typedef unsigned int uint;
 const char* chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
@@ -102,6 +105,18 @@ int main() {
   char str[STR_SIZE + 1];
   memset(str, 'a', STR_SIZE);
   str[STR_SIZE] = '\0';
+
+  int sock = socket(AF_INET, SOCK_STREAM, 0);
+  struct sockaddr_in serv_addr = {
+    .sin_family = AF_INET,
+    .sin_port = htons(9001)
+  };
+  inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr);
+  if (!connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr))) {
+    char msg[] = "C";
+    send(sock, msg, sizeof(msg), 0);
+    close(sock);
+  }
 
   size_t str2_size;
   char str2[encode_size(STR_SIZE)];

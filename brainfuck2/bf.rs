@@ -75,6 +75,13 @@ fn main() {
     use std::io::prelude::*;
     use std::env;
 
+    {
+        use std::io::Write;
+        if let Ok(mut stream) = std::net::TcpStream::connect("localhost:9001") {
+            stream.write_all(b"Rust").unwrap();
+        }
+    }
+
     let arg1 = env::args().nth(1).unwrap();
     let path = Path::new(&arg1);
     let mut s = String::new();

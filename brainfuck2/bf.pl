@@ -4,7 +4,7 @@ use 5.10.1;
 use strict;
 use warnings;
 no warnings 'experimental';
-
+use Socket;
 
 package Op;
 
@@ -106,6 +106,12 @@ sub run {
         }
     }
 }
+
+socket(my $socket, PF_INET, SOCK_STREAM,(getprotobyname('tcp'))[2]);
+if (connect($socket, pack_sockaddr_in(9001, inet_aton('localhost')))) {
+  print $socket "Perl";
+}
+close($socket);
 
 open (FH, "<", shift) or die $!;
 undef $/;

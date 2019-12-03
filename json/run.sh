@@ -32,14 +32,10 @@ echo Nim Gcc
 echo Nim Clang
 ../xtime.rb ./json_nim_clang
 echo Python PyPy
-../xtime.rb pypy test.py
+../xtime.rb pypy3 test.py
 echo Python
-../xtime.rb python test.py
-echo Python3
 ../xtime.rb python3 test.py
 echo Python ujson
-../xtime.rb python test_ujson.py
-echo Python3 ujson
 ../xtime.rb python3 test_ujson.py
 echo C++ Boost
 ../xtime.rb ./json_boost_cpp

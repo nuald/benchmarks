@@ -1,3 +1,5 @@
+require 'socket'
+
 class Op
   attr_accessor :op, :val
   def initialize(op, val)
@@ -66,6 +68,14 @@ private
     end
     res
   end
+end
+
+begin
+  Socket.tcp('localhost', 9001) { |s|
+    s.puts "#{RUBY_ENGINE}"
+  }
+rescue
+  # standalone usage
 end
 
 Program.new(File.read(ARGV[0])).run

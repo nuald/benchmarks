@@ -32,9 +32,9 @@ echo Mono
 echo .Net Core
 ../xtime.rb dotnet bin/Release/netcoreapp3.0/brainfuck.dll bench.b
 echo Python PyPy
-../xtime.rb pypy brainfuck.py bench.b
+../xtime.rb pypy3 brainfuck.py bench.b
 echo Python
-../xtime.rb python brainfuck.py bench.b
+../xtime.rb python3 brainfuck.py bench.b
 echo Ruby
 ../xtime.rb ruby brainfuck.rb bench.b
 echo Tcl

@@ -16,6 +16,10 @@ object JsonTest {
   }
 
   private def parseJson(): Unit = {
+    scala.util.Using((new java.net.Socket("localhost", 9001)).getOutputStream()) {
+        _.write("Scala".getBytes())
+    }
+
     val start_time = System.nanoTime
 
     val settings = new DslJson.Settings[Any]().doublePrecision(JsonReader.DoublePrecision.LOW).`with`(new ConfigureScala)

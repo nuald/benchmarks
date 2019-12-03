@@ -1,9 +1,18 @@
 require "base64"
+require "socket"
 
 STR_SIZE = 131072
 TRIES = 8192
 
 str = "a" * STR_SIZE
+
+begin
+  Socket.tcp('localhost', 9001) { |s|
+    s.puts "#{RUBY_ENGINE}"
+  }
+rescue
+  # standalone usage
+end
 
 str2 = Base64.strict_encode64(str)
 print "encode #{str[0..3]}... to #{str2[0..3]}...: "

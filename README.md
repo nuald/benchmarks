@@ -285,7 +285,7 @@ Base Docker image: Debian GNU/Linux bullseye/sid
 
 | Language     | Version                         |
 | ------------ | ------------------------------- |
-| .NET Core    | 3.0.100                         |
+| .NET Core    | 3.0.101                         |
 | C# .NET Core | 3.3.1-beta4-19462-11 (66a912c9) |
 | C# Mono      | 6.4.0.198                       |
 | Chez Scheme  | 9.5                             |
@@ -302,26 +302,26 @@ Base Docker image: Debian GNU/Linux bullseye/sid
 | Haskell      | 8.8.1                           |
 | JRuby        | 9.2.9.0                         |
 | Java         | 13.0.1                          |
-| Julia        | v"1.2.0"                        |
-| Kotlin       | 1.3.50                          |
+| Julia        | v"1.3.0"                        |
+| Kotlin       | 1.3.61                          |
 | LDC          | 1.18.0                          |
 | Lua          | Lua 5.3                         |
 | LuaJIT       | LuaJIT 2.1.0-beta3              |
 | MLton        | 20180207                        |
-| Nim          | 1.0.2                           |
-| Node.js      | v13.1.0                         |
+| Nim          | 1.0.4                           |
+| Node.js      | v13.2.0                         |
 | OCaml        | 4.09.0                          |
 | PHP          | 7.3.10-1+b1                     |
 | Perl         | v5.30.0                         |
 | PyPy         | 7.1.1-final0 for Python 2.7.13  |
 | Python 2     | 2.7.17                          |
 | Python 3     | 3.7.5                           |
-| Racket       | "7.4"                           |
+| Racket       | "7.5"                           |
 | Ruby         | 2.6.5p114                       |
 | Rust         | 1.39.0                          |
 | Scala        | 2.13.1                          |
 | Swift        | swift-5.1.2-RELEASE             |
 | Tcl          | 8.6                             |
-| TruffleRuby  | 19.2.1                          |
-| V            | 0.1.22 ab37081                  |
+| TruffleRuby  | 19.3.0                          |
+| V            | 0.1.22 dbaa37e                  |
 | jq           | jq-1.6                          |
