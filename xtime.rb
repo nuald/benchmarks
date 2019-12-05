@@ -20,9 +20,9 @@ def energy
   0.000001 * `rapl-info -j`.to_i
 end
 
+server = TCPServer.new 9001
 pid = Process.spawn(*ARGV.to_a)
 
-server = TCPServer.new 9001
 client = server.accept
 puts client.gets
 

@@ -1,4 +1,5 @@
 import os
+import net
 
 fn make_matrix(n int, m int) [] []f64 {
   mut res := [[f64(0.0)].repeat(m)]
@@ -54,7 +55,16 @@ fn matmul(a [] []f64, b [] []f64) [] []f64 {
   return c
 }
 
+fn notify() {
+    sock := net.dial('127.0.0.1', 9001) or {
+        return
+    }
+    sock.write("V") or {}
+    sock.close() or {}
+}
+
 fn main() {
+  notify()
   n := if os.args.len != 2 {
     100
   } else {

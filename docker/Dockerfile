@@ -22,7 +22,8 @@ RUN  apt-get update \
      python3-numpy python3 python3-ujson \
      mono-devel nuget \
      chezscheme gccgo gdc \
-     luajit lua5.3 tcl tcllib jq php elixir clang-9 opam \
+     luajit lua5.3 lua-socket \
+     tcl tcllib jq php elixir clang-9 opam \
   && rm -rf /var/lib/apt/lists/* /tmp/* \
   && ln -s /usr/bin/clang-9 /usr/bin/clang
 
@@ -191,6 +192,15 @@ RUN ghcup install $GHC_VER && ghcup set $GHC_VER
 # Shared packages for all Haskell code
 RUN cabal update && cabal install network-simple --lib
 ENV GHC_PACKAGE_PATH="~/.cabal/store/ghc-${GHC_VER}/package.db:"
+
+# Socket library used with static (C/C++) and dynamic (Chez Scheme) linking
+# https://github.com/dermesser/libsocket/releases
+ARG LIBSOCKET=2.5.0
+RUN wget --progress=dot:giga -O - \
+    https://github.com/dermesser/libsocket/archive/v$LIBSOCKET.tar.gz \
+    | tar -xz \
+    && cd libsocket-$LIBSOCKET \
+    && cmake CMakeLists.txt && make && make install
 
 ARG SCRIPTS_VER=unknown
 COPY *.rb ./

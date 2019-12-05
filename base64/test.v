@@ -1,11 +1,21 @@
 import encoding.base64
 import benchmark
+import net
+
+fn notify() {
+    sock := net.dial('127.0.0.1', 9001) or {
+        return
+    }
+    sock.write("V") or {}
+    sock.close() or {}
+}
 
 fn main() {
   str_size := 131072
   tries := 8192
 
   str := 'a'.repeat(str_size)
+  notify()
 
   str2 := base64.encode(str)
   print('encode ${str.substr(0, 4)}... to ${str2.substr(0, 4)}...: ')

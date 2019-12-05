@@ -256,29 +256,6 @@ Testing Havlak's loop finder implementations.
 | Python PyPy     | 46.53   | 777.4       |
 | Python          | 429.51  | 744.9       |
 
-# Using Docker
-
-Build the image:
-
-    $ docker build docker/ -t benchmarks
-
-Run the image:
-
-    $ docker run -it --rm -v $(pwd):/src benchmarks <cmd>
-
-where <cmd> is:
-
- - `versions` (print installed language versions)
- - `shell` (start the shell)
- - `brainfuck2 bench` (build and run Brainfuck2 bench.b benchmarks)
- - `brainfuck2 mandel` (build and run Brainfuck2 mandel.b benchmarks)
- - `base64` (build and run Base64 benchmarks)
- - `json` (build and run Json benchmarks)
- - `matmul` (build and run Matmul benchmarks)
- - `havlak` (build and run Havlak benchmarks)
-
-Please note that some tests are unstable under Docker and should be run manually (use `shell` command to get an access to the image).
-
 # Environment
 
 CPU: Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz
@@ -327,3 +304,66 @@ Base Docker image: Debian GNU/Linux bullseye/sid
 | TruffleRuby  | 19.3.0                          |
 | V            | 0.1.22 dbaa37e                  |
 | jq           | jq-1.6                          |
+
+# Testing
+
+## Using Docker
+
+Build the image:
+
+    $ docker build docker/ -t benchmarks
+
+Run the image:
+
+    $ docker run -it --rm -v $(pwd):/src benchmarks <cmd>
+
+where <cmd> is:
+
+ - `versions` (print installed language versions)
+ - `shell` (start the shell)
+ - `brainfuck2 bench` (build and run Brainfuck2 bench.b benchmarks)
+ - `brainfuck2 mandel` (build and run Brainfuck2 mandel.b benchmarks)
+ - `base64` (build and run Base64 benchmarks)
+ - `json` (build and run Json benchmarks)
+ - `matmul` (build and run Matmul benchmarks)
+ - `havlak` (build and run Havlak benchmarks)
+
+Please note that some tests are unstable under Docker and should be run manually (use `shell` command to get an access to the image).
+
+## Manual
+
+The tests should be built first (using `build.sh`) and after that executed (using `run.sh` and `run2.sh` where applicable).
+
+### Prerequisites
+
+Please use [Dockerfile](docker/Dockerfile) as a reference regarding which packages and tools are required.
+
+For all (optional):
+
+ - [Powercap](https://github.com/powercap/powercap) for reading energy counters in Linux (Debian package `powercap-utils`)
+
+For Python:
+
+ - [NumPy](https://numpy.org/) for matmul tests (Debian package `python3-numpy`)
+ - [UltraJSON](https://pypi.org/project/ujson/) for JSON tests (Debian package `python3-ujson`)
+
+For C++:
+
+ - [Boost](https://www.boost.org/) for JSON tests (Debian package `libboost-dev`)
+ - [JSON-C](https://github.com/json-c/json-c) for JSON tests (Debian package `libjson-c-dev`)
+
+For Java, Scala:
+
+ - [Coursier](https://get-coursier.io/) for downloading Maven artifacts
+
+For Lua:
+
+ - [LuaSocket](http://w3.impa.br/~diego/software/luasocket/) for TCP connectivity between the tests and the test runner (Debian package `lua-socket`)
+
+For Haskell:
+
+ - [network-simple](http://hackage.haskell.org/package/network-simple) for TCP connectivity between the tests and the test runner
+
+For C, C++, Chez Scheme:
+
+ - [libsocket](https://github.com/dermesser/libsocket/) for TCP connectivity between the tests and the test runner

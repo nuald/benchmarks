@@ -1,4 +1,5 @@
 import os
+import net
 
 const (
   INC = 0
@@ -122,7 +123,17 @@ fn (si mut StringIterator) next() byte {
   }
 }
 
+fn notify() {
+    sock := net.dial('127.0.0.1', 9001) or {
+        return
+    }
+    sock.write("V") or {}
+    sock.close() or {}
+}
+
 fn main() {
+    notify()
+
     args := os.args
     mut filename := ''
 
