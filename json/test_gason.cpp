@@ -4,10 +4,7 @@
 #include <sstream>
 #include <string>
 #include <string.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include <functional>
+#include <libsocket/inetclientstream.hpp>
 
 using namespace std;
 
@@ -21,19 +18,11 @@ void read_file(string filename, stringstream &buffer){
 }
 
 int main() {
-    {
-      unique_ptr<int, function<void(int*)>> sock(
-        new int(socket(AF_INET, SOCK_STREAM, 0)),
-        [](int *s){ close(*s); });
-      struct sockaddr_in serv_addr = {
-        .sin_family = AF_INET,
-        .sin_port = htons(9001)
-      };
-      inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr);
-      if (!connect(*sock.get(), (struct sockaddr *)&serv_addr, sizeof(serv_addr))) {
-        string msg("C++ gason");
-        send(*sock.get(), msg.c_str(), msg.size(), 0);
-      }
+    try {
+      libsocket::inet_stream sock("localhost", "9001", LIBSOCKET_IPv4);
+      sock << "C++ gason";
+    } catch (...) {
+      // standalone usage
     }
 
     stringstream ss;

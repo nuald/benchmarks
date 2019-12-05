@@ -36,7 +36,7 @@ RUN export VERSION=ruby-2.6.5 \
     | tar -xz \
     && cd $VERSION \
     && ./configure --prefix=/opt/ruby && make -j && make install \
-    && rm -rf $VERSION
+    && cd .. && rm -rf $VERSION
 ENV PATH="/opt/ruby/bin:${PATH}"
 
 # https://github.com/dotnet/core/tree/master/release-notes
@@ -83,7 +83,7 @@ ENV PATH="/opt/$NIM/bin/:${PATH}"
 
 # https://golang.org/dl/
 RUN wget --progress=dot:giga -O - \
-    https://dl.google.com/go/go1.13.4.linux-amd64.tar.gz \
+    https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz \
     | tar -xz
 ENV PATH="/opt/go/bin/:${PATH}"
 
@@ -101,7 +101,7 @@ RUN wget --progress=dot:giga -O - \
 ENV PATH="/opt/scala-$SCALA/bin/:${PATH}"
 
 # https://nodejs.org/en/download/current/
-ARG NODE=v13.2.0
+ARG NODE=v13.3.0
 RUN wget --progress=dot:giga -O - \
     https://nodejs.org/dist/$NODE/node-$NODE-linux-x64.tar.xz \
     | tar -xJ
@@ -200,7 +200,8 @@ RUN wget --progress=dot:giga -O - \
     https://github.com/dermesser/libsocket/archive/v$LIBSOCKET.tar.gz \
     | tar -xz \
     && cd libsocket-$LIBSOCKET \
-    && cmake CMakeLists.txt && make && make install
+    && cmake CMakeLists.txt && make && make install \
+    && cd .. && rm -rf libsocket-$LIBSOCKET
 
 ARG SCRIPTS_VER=unknown
 COPY *.rb ./

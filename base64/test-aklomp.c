@@ -1,9 +1,7 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include <string.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <unistd.h>
+#include <libsocket/libinetsocket.h>
 #include "time.h"
 #include "libbase64.h"
 #include "../lib/config.h"
@@ -24,16 +22,11 @@ int main() {
   memset(str, 'a', STR_SIZE);
   str[STR_SIZE] = '\0';
 
-  int sock = socket(AF_INET, SOCK_STREAM, 0);
-  struct sockaddr_in serv_addr = {
-    .sin_family = AF_INET,
-    .sin_port = htons(9001)
-  };
-  inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr);
-  if (!connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr))) {
+  int sock = create_inet_stream_socket("localhost", "9001", LIBSOCKET_IPv4, 0);
+  if (sock != -1) {
     char msg[] = "C aklomp";
     send(sock, msg, sizeof(msg), 0);
-    close(sock);
+    destroy_inet_socket(sock);
   }
 
   size_t str2_size;

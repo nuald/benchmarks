@@ -2,7 +2,7 @@
 
 set -e
 crystal build bf.cr --release -o bin_cr --no-debug
-g++ -flto -O3 -o bin_cpp bf.cpp
+g++ -flto -O3 -o bin_cpp bf.cpp -lsocket++
 rustc -C opt-level=3 -C lto bf.rs -o bin_rs
 scalac bf.scala
 mcs -debug- -optimize+ bf.cs
