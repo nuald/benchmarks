@@ -73,7 +73,7 @@ run (op:ops) tape = do
 
 main = do
     connect "localhost" "9001" $ \(socket, _) -> do
-      send socket $ C.pack "Haskell"
+      send socket $ C.pack "Haskell MArray"
     [filename] <- getArgs
     source <- readFile filename
     let (_, ops) = parse (source, [])
