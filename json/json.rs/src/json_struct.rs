@@ -17,7 +17,7 @@ pub struct Coordinate {
 }
 
 #[derive(Deserialize)]
-pub struct TestStruct  {
+pub struct TestStruct {
     coordinates: Vec<Coordinate>,
 }
 

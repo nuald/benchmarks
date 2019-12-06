@@ -65,8 +65,8 @@ echo Perl
 ../xtime.rb perl -Iperllib/lib/perl5 test.pl
 echo Perl XS
 ../xtime.rb perl -Iperllib/lib/perl5 test-xs.pl
-echo jq
-../xtime.rb jq -r '.coordinates | length as $len | (map(.x) | add) / $len, (map(.y) | add) / $len, (map(.z) | add) / $len' 1.json
+echo Rust jq
+../xtime.rb ./json_jq_rs
 echo Java
 ../xtime.rb json-java/target/application
 echo Php

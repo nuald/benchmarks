@@ -8,7 +8,8 @@ crystal build test_schema.cr --release -o json_schema_cr --no-debug
 cargo build --manifest-path json.rs/Cargo.toml --release && \
   cp ./json.rs/target/release/json-pull-rs ./json_pull_rs && \
   cp ./json.rs/target/release/json-struct-rs ./json_struct_rs && \
-  cp ./json.rs/target/release/json-value-rs ./json_value_rs
+  cp ./json.rs/target/release/json-value-rs ./json_value_rs && \
+  cp ./json.rs/target/release/json-jq-rs ./json_jq_rs
 dmd -ofjson_d -O -release -inline test.d
 gdc -o json_d_gdc -O3 -frelease -finline test.d
 ldc2 -ofjson_d_ldc -O5 -release test.d

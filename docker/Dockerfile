@@ -19,13 +19,17 @@ RUN  apt-get update \
   && apt-get install -y wget xz-utils build-essential libtool-bin cmake git curl vim powercap-utils \
      libgmp-dev libssl-dev libssl1.1 libxml2 lbzip2 libtinfo5 libtool zlib1g libicu63 \
      libpcre3-dev libevent-dev libboost-dev libjson-c-dev libblas-dev liblapack-dev libopenblas-dev \
+     libjq-dev libonig-dev \
      python3-numpy python3 python3-ujson \
      mono-devel nuget \
      chezscheme gccgo gdc \
      luajit lua5.3 lua-socket \
-     tcl tcllib jq php elixir clang-9 opam \
+     tcl tcllib php elixir clang-9 opam \
   && rm -rf /var/lib/apt/lists/* /tmp/* \
   && ln -s /usr/bin/clang-9 /usr/bin/clang
+
+# Requires for https://crates.io/crates/jq-sys in Debian
+ENV JQ_LIB_DIR=/usr/lib/x86_64-linux-gnu/
 
 WORKDIR /opt
 
