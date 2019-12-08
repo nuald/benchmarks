@@ -21,10 +21,10 @@ namespace Test
             }
 
             try {
-                using (var s = new System.Net.Sockets.TcpClient("localhost", 9001)) {
+                using (var sock = new System.Net.Sockets.TcpClient("localhost", 9001)) {
                     var runtime = Type.GetType("Mono.Runtime") != null ? "Mono" : ".NET Core";
                     var data = System.Text.Encoding.UTF8.GetBytes("C# " + runtime);
-                    s.Client.Send(data);
+                    sock.Client.Send(data);
                 }
             } catch {
                 // standalone usage

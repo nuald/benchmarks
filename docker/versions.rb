@@ -44,11 +44,11 @@ def versions
     },
 
     "GCC" => -> { `gcc -dumpfullversion` },
-    "GCC Go (gccgo)" => -> { `gccgo -dumpfullversion` },
+    "GCC Go" => -> { `gccgo -dumpfullversion` },
     "GDC" => -> { `gdc -dumpfullversion` },
     "Nim" => -> { `nim c --verbosity:0 --hint[Processing]:off -r #{cat('nim.nim', 'echo NimVersion')}` },
     "Crystal" => -> { `crystal eval "puts Crystal::VERSION"` },
-    "Go (gc)" => -> {
+    "Go" => -> {
       prog = <<-END
 package main
 import (
@@ -109,7 +109,6 @@ END
     "Perl" => -> { `perl -e 'print $^V;'` },
     "Haskell" => -> { `ghc --numeric-version` },
     "Tcl" => -> { `echo 'puts "$tcl_version"' | tclsh` },
-    "jq" => -> { `jq --version` },
     "Kotlin" => -> {
       prog = <<-END
 fun main(args: Array<String>){

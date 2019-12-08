@@ -1,4 +1,5 @@
 import ujson as json
+import platform
 import socket
 
 def test_json():

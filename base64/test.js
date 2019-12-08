@@ -1,4 +1,4 @@
-d 'error' eventconst util = require('util');
+const util = require('util');
 
 const STR_SIZE = 131072;
 const TRIES = 8192;

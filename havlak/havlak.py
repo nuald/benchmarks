@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import sys
+import platform
 import socket
+import sys
 
 #======================================================
 # Scaffold Code
@@ -58,7 +59,7 @@ class BasicBlock:
       for edge in self.outEdges:
         res += " " + str(edge.name)
 
-    print res
+    print(res)
 
 #
 # class CFG
@@ -144,16 +145,16 @@ class SimpleLoop:
 
   def dump(self, indent):
     for i in range(indent):
-      print "  ",
+      print("  ", end=" ")
 
-    print "loop-%d nest: %d depth %d" % (
+    print("loop-%d nest: %d depth %d" % (
                       self.counter,
                       self.nestingLevel,
-                      self.depthLevel),
+                      self.depthLevel), end = " ")
     if self.isReducible == True:
-      print ""
+      print("")
     else:
-      print "irreducible"
+      print("irreducible")
 
 
   def setParent(self, parent):
@@ -577,9 +578,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 cfg = CFG()
 lsg = LSG()
 
-print "Welcome to LoopTesterApp, Python edition"
+print("Welcome to LoopTesterApp, Python edition")
 
-print "Constructing Simple CFG..."
+print("Constructing Simple CFG...")
 sys.setrecursionlimit(100000)
 
 cfg.createNode(0)  # top
@@ -588,14 +589,14 @@ buildBaseLoop(0)
 buildConnect(0, 2)
 
 # execute loop recognition 15000 times to force compilation
-print "15000 dummy loops"
+print("15000 dummy loops")
 for dummyloop in range(15000):
   lsglocal = LSG()
   finder = HavlakLoopFinder(cfg, lsglocal)
   x = finder.findLoops()
   del lsglocal
 
-print "Constructing CFG..."
+print("Constructing CFG...")
 n = 2
 
 for parlooptrees in range(10):
@@ -614,11 +615,11 @@ for parlooptrees in range(10):
 
   buildConnect(n, 1)
 
-print "Performing Loop Recognition\n1 Iteration"
+print("Performing Loop Recognition\n1 Iteration")
 finder = HavlakLoopFinder(cfg, lsg)
 loops = finder.findLoops()
 
-print "Another 50 iterations..."
+print("Another 50 iterations...")
 
 sum = 0
 for i in range(50):
@@ -626,4 +627,4 @@ for i in range(50):
   sys.stdout.flush()
   sum += HavlakLoopFinder(cfg, LSG()).findLoops()
 
-print "\nFound " + str(loops) + " loops (including artificial root node) (" + str(sum) + ")\n"
+print("\nFound " + str(loops) + " loops (including artificial root node) (" + str(sum) + ")\n")

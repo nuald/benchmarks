@@ -1,4 +1,5 @@
 import base64, time
+import platform
 import socket
 
 STR_SIZE = 131072

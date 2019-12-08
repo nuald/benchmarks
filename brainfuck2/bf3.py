@@ -1,5 +1,6 @@
-import sys
+import platform
 import socket
+import sys
 
 INC = 1
 MOVE = 2

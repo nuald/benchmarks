@@ -75,22 +75,13 @@ echo V Gcc
 ../xtime.rb ./json_v_gcc
 echo V Clang
 ../xtime.rb ./json_v_clang
-
-if [ "$1" != "--skip-unstable" ]; then
-  echo Haskell
-  ../xtime.rb ./json_hs
-  echo JRuby
-  ../xtime.rb jruby -J-Xmx4096M test.rb
-  echo TruffleRuby
-  ../xtime.rb truffleruby test.rb
-  echo Julia
-  ../xtime.rb julia --check-bounds=no test.jl
-  echo Clojure
-  ../xtime.rb clojure -Sdeps '{:deps {cheshire {:mvn/version "5.9.0"}}}' test.clj
-else
-  echo "Skipped run - Haskell"
-  echo "Skipped run - JRuby"
-  echo "Skipped run - TruffleRuby"
-  echo "Skipped run - Julia"
-  echo "Skipped run - Clojure"
-fi
+echo Haskell
+../xtime.rb ./json_hs
+echo JRuby
+../xtime.rb jruby -J-Xmx4096M test.rb
+echo TruffleRuby
+../xtime.rb truffleruby test.rb
+echo Julia
+../xtime.rb julia --check-bounds=no test.jl
+echo Clojure
+../xtime.rb clojure -Sdeps '{:deps {cheshire {:mvn/version "5.9.0"}}}' test.clj

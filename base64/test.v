@@ -18,7 +18,7 @@ fn main() {
   notify()
 
   str2 := base64.encode(str)
-  print('encode ${str.substr(0, 4)}... to ${str2.substr(0, 4)}...: ')
+  print('encode ${str[0..4]}... to ${str2[0..4]}...: ')
 
   mut bench := benchmark.new_benchmark()
   bench.step()
@@ -32,7 +32,7 @@ fn main() {
   println(bench.step_message('$s'))
 
   str3 := base64.decode(str2)
-  print('decode ${str2.substr(0, 4)}... to ${str3.substr(0, 4)}...: ')
+  print('decode ${str2[0..4]}... to ${str3[0..4]}...: ')
 
   bench.step()
   s = 0

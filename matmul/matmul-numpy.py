@@ -1,4 +1,5 @@
 import numpy as np
+import platform
 import socket
 
 def build_matrix_np(n):

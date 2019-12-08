@@ -49,16 +49,12 @@ gem install yajl-ruby
 
 wget -qO - https://cpanmin.us | perl - -L perllib Cpanel::JSON::XS JSON::Tiny File::Slurper
 
-if [ "$1" != "--skip-unstable" ]; then
-  # haskell
-  if ! [ -x "$(command -v cabal)" ]; then
-    echo 'Please install cabal (https://www.haskell.org/downloads/linux/).' >&2
-    exit 1
-  fi
-  cd json-hs; make; cd ..
-else
-  echo "Skipped build - Haskell"
+# haskell
+if ! [ -x "$(command -v cabal)" ]; then
+  echo 'Please install cabal (https://www.haskell.org/downloads/linux/).' >&2
+  exit 1
 fi
+cd json-hs; make; cd ..
 
 # python/python3/pypy
 # pip install ujson
