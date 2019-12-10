@@ -77,7 +77,7 @@ END
     },
     "Scala" => -> { `scala -e "print(util.Properties.versionNumberString)"` },
     "Node.js" => -> { `node -e "console.log(process.version)"` },
-    "CPython" => -> { `python3 -c "import platform;print(platform.python_version())"` },
+    "Python" => -> { `python3 -c "import platform;print(platform.python_version())"` },
     "PyPy" => -> {
       prog = <<-END
 import platform, sys
