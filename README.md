@@ -11,6 +11,7 @@ The benchmarks follow the criteria:
 
   - The used algorithms are similar between the languages (reference implementations), variants are acceptable if the reference implementation exists.
   - All final binaries are releases (optimized for performance if possible) as debug performance may vary too much depending on the compiler.
+  - JIT warming up is applied when necessary, the actual measurements are taken only after the test signals the runner with the TCP request.
 
 # UPDATE 
 
@@ -325,11 +326,17 @@ where <cmd> is:
  - `matmul` (build and run Matmul benchmarks)
  - `havlak` (build and run Havlak benchmarks)
 
-Please note that some tests are unstable under Docker and should be run manually (use `shell` command to get an access to the image).
+Please note that the actual measurements provided in the project are taken semi-manually (via `shell`) as the full update takes days and could have occassional issues in Docker.
 
 ## Manual
 
-The tests should be built first (using `build.sh`) and after that executed (using `run.sh` and `run2.sh` where applicable).
+The tests should be built first (using `build.sh`) and after that executed (using `run.sh` and `run2.sh` where applicable). The measurements are taken using `analyze.rb` script:
+
+    $ cd <test>
+    $ ../analyze.rb ./run.sh
+    $ ../analyze.rb ../xtime.rb <single test>
+
+Please note that the measurements could take hours (it uses 10 iterations by default), so you may want to analyze the single tests for quicker measurements.
 
 ### Prerequisites
 
