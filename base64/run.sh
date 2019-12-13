@@ -26,7 +26,7 @@ echo Nim Gcc
 echo Nim Clang
 ../xtime.rb ./base64_nim_clang
 echo Julia
-../xtime.rb julia --check-bounds=no test.jl
+../xtime.rb julia --optimize=3 --check-bounds=no test.jl
 echo Scala
 ../xtime.rb scala Base64
 echo Java
@@ -44,7 +44,7 @@ echo Ruby
 echo JRuby
 ../xtime.rb jruby test.rb
 echo TruffleRuby
-../xtime.rb truffleruby test.rb
+../xtime.rb truffleruby --jvm test.rb
 echo Mono
 ../xtime.rb mono -O=all --gc=sgen test.exe
 echo C# .Net Core

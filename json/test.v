@@ -16,7 +16,11 @@ fn notify() {
     sock := net.dial('127.0.0.1', 9001) or {
         return
     }
-    sock.write("V") or {}
+    mut lang := "V GCC"
+    $if clang {
+      lang = "V Clang"
+    }
+    sock.write(lang) or {}
     sock.close() or {}
 }
 

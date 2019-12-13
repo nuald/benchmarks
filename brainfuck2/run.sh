@@ -52,7 +52,7 @@ echo Ruby
 echo JRuby
 ../xtime.rb jruby bf.rb bench.b
 echo TruffleRuby
-../xtime.rb truffleruby bf.rb bench.b
+../xtime.rb truffleruby --jvm bf.rb bench.b
 echo Python
 ../xtime.rb python3 bf3.py bench.b
 echo Standard ML MLton
@@ -74,4 +74,4 @@ echo V Gcc
 echo V Clang
 ../xtime.rb ./bin_v_clang bench.b
 echo Julia
-../xtime.rb julia --check-bounds=no bf.jl bench.b
+../xtime.rb julia --optimize=3 --check-bounds=no bf.jl bench.b

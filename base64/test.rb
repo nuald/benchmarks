@@ -8,7 +8,16 @@ str = "a" * STR_SIZE
 
 begin
   Socket.tcp('localhost', 9001) { |s|
-    s.puts "#{RUBY_ENGINE}"
+    engine = "#{RUBY_ENGINE}"
+    if engine == "truffleruby"
+      desc = "#{RUBY_DESCRIPTION}"
+      if desc.include?('Native')
+        engine = "TruffleRuby Native"
+      elsif desc.include?('JVM')
+        engine = "TruffleRuby JVM"
+      end
+    end
+    s.puts engine
   }
 rescue
   # standalone usage

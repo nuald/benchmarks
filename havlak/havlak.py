@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import platform
+import resource
 import socket
 import sys
 
@@ -581,6 +582,7 @@ lsg = LSG()
 print("Welcome to LoopTesterApp, Python edition")
 
 print("Constructing Simple CFG...")
+resource.setrlimit(resource.RLIMIT_STACK, (100000000, -1))
 sys.setrecursionlimit(100000)
 
 cfg.createNode(0)  # top

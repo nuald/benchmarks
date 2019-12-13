@@ -54,7 +54,7 @@ function test()
   println("bench")
   try
     socket = connect("localhost", 9001)
-    write(socket, "Julia")
+    write(socket, "Julia (no BLAS)")
     close(socket)
   catch
     # standalone usage

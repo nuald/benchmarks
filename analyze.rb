@@ -6,11 +6,15 @@ require 'fileutils'
 RESULTS_LOG = 'results.log'
 ATTEMPTS = 10
 
-FileUtils.rm_f(RESULTS_LOG)
+if ARGV.length > 0
+  FileUtils.rm_f(RESULTS_LOG)
 
-ATTEMPTS.times do |n|
-  puts "--- Iteration #{n + 1}"
-  system(ARGV.join(' '))
+  ATTEMPTS.times do |n|
+    puts "--- Iteration #{n + 1}"
+    if not system(*ARGV)
+      exit
+    end
+  end
 end
 
 Row = Struct.new(:name, :secs, :mb, :joules)
@@ -18,7 +22,6 @@ Row = Struct.new(:name, :secs, :mb, :joules)
 name_repl = {
   "ruby" => "Ruby",
   "jruby" => "JRuby",
-  "truffleruby" => "TruffleRuby",
   "gccgo" => "GCC Go",
   "gc" => "Go",
   "CPython" => "Python",
@@ -35,12 +38,15 @@ keys = lines.map {|row| row.name}.uniq
 def sd(list)
   mean = list.inject(:+) / list.length.to_f
   var_sum = list.map {|n| (n-mean)**2 }.inject(:+).to_f
-  sample_variance = var_sum / (list.length - 1)
+  sample_variance = list.length > 1 ? var_sum / (list.length - 1) : 0
   "%.2f ± %05.2f" % [mean, Math.sqrt(sample_variance)]
 end
 
 results = keys.map { |k|
   rows = lines.select { |line| line.name == k }
+  if rows.length != ATTEMPTS
+    abort("Integrity check failed")
+  end
   secs = sd(rows.map { |row| row.secs.to_f })
   mb = sd(rows.map { |row| row.mb.to_f })
   joules = sd(rows.map { |row| row.joules.to_f })

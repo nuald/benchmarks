@@ -78,10 +78,10 @@ echo V Clang
 echo Haskell
 ../xtime.rb ./json_hs
 echo JRuby
-../xtime.rb jruby -J-Xmx4096M test.rb
+../xtime.rb jruby test.rb
 echo TruffleRuby
-../xtime.rb truffleruby test.rb
+../xtime.rb truffleruby --jvm test.rb
 echo Julia
-../xtime.rb julia --check-bounds=no test.jl
+../xtime.rb julia --optimize=3 --check-bounds=no test.jl
 echo Clojure
 ../xtime.rb clojure -Sdeps '{:deps {cheshire {:mvn/version "5.9.0"}}}' test.clj

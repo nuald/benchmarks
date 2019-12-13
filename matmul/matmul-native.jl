@@ -28,7 +28,9 @@ function test()
   println("bench")
   try
     socket = connect("localhost", 9001)
-    write(socket, "Julia")
+    # Assuming openblas64, may not work for all environments
+    num_threads = ccall((:openblas_get_num_threads64_, Base.libblas_name), Int32, ())
+    write(socket, "Julia (threads: $(num_threads))")
     close(socket)
   catch
     # standalone usage

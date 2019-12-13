@@ -122,13 +122,6 @@ RUN wget --progress=dot:giga -O - \
     | tar -xz \
     && ln -s /opt/jruby-$JRUBY/bin/jruby /usr/bin/jruby
 
-# https://github.com/oracle/truffleruby/releases
-ARG TRUFFLERUBY=19.3.0
-RUN wget --progress=dot:giga -O - \
-    https://github.com/oracle/truffleruby/releases/download/vm-$TRUFFLERUBY/truffleruby-$TRUFFLERUBY-linux-amd64.tar.gz \
-    | tar -xz \
-    && ln -s /opt/truffleruby-$TRUFFLERUBY-linux-amd64/bin/truffleruby /usr/bin/truffleruby
-
 # https://julialang.org/downloads/
 ARG JULIA=julia-1.3.0
 RUN wget --progress=dot:giga -O - \
@@ -206,6 +199,15 @@ RUN wget --progress=dot:giga -O - \
     && cd libsocket-$LIBSOCKET \
     && cmake CMakeLists.txt && make && make install \
     && cd .. && rm -rf libsocket-$LIBSOCKET
+
+# https://github.com/graalvm/graalvm-ce-builds/releases
+ARG GRAALVM=19.3.0
+RUN wget --progress=dot:giga -O - \
+    https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-$GRAALVM/graalvm-ce-java11-linux-amd64-$GRAALVM.tar.gz \
+    | tar -xz \
+    && ln -s /opt/graalvm-ce-java11-$GRAALVM/bin/gu /usr/bin/gu
+RUN gu install ruby \
+    && ln -s /opt/graalvm-ce-java11-$GRAALVM/bin/truffleruby /usr/bin/truffleruby
 
 ARG SCRIPTS_VER=unknown
 COPY *.rb ./
