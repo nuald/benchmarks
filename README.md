@@ -11,11 +11,11 @@ The benchmarks follow the criteria:
 
   - The used algorithms are similar between the languages (reference implementations), variants are acceptable if the reference implementation exists.
   - All final binaries are releases (optimized for performance if possible) as debug performance may vary too much depending on the compiler.
-  - JIT warming up is applied when necessary, the actual measurements are taken only after the test signals the runner with the TCP request.
+  - JIT warming up is applied when necessary, and the actual measurements are taken only after the test signals the runner with the TCP request.
 
 # UPDATE 
 
-2019-11-09
+2019-12-13
 
 # Brainfuck v2.0
 
@@ -199,7 +199,7 @@ Testing allocating and multiplying matrices.
 
 |           Language |        Time, s |     Memory, MiB |         Energy, J |
 | :----------------- | -------------: | --------------: | ----------------: |
-|         LDC lubeck |   0.11 ± 00.00 |   23.94 ± 10.16 |      0.00 ± 00.00 |
+|         LDC lubeck |   0.13 ± 00.06 |   31.40 ± 17.08 |      6.60 ± 01.98 |
 | Julia (threads: 8) |   0.13 ± 00.00 |  271.34 ± 00.18 |      8.81 ± 00.12 |
 |       Python NumPy |   0.16 ± 00.00 |   85.21 ± 00.09 |      9.49 ± 00.14 |
 | Julia (threads: 1) |   0.31 ± 00.01 |  269.76 ± 00.10 |      8.10 ± 01.43 |

@@ -70,6 +70,7 @@ Thread.new do
 end
 
 Process.waitpid(pid, 0)
+energy_stats.update
 t_diff = Process.clock_gettime(Process::CLOCK_MONOTONIC) - t
 mm_mb = mm / 1024.0
 stats = "%.2f s, %.1f Mb" % [t_diff, mm_mb]
